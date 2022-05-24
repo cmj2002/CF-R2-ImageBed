@@ -6,9 +6,9 @@ English | [简体中文](./README_zh-cn.md)
 
 The repo contains 3 parts:
 
-* A Worker (`worker/`) that handles requests to upload files to R2 storage or get file from it.
-* A [Python script](uploader/README.md) (`uploader/`) that helps you upload files to the worker.
-* A Page Function (`page-function/`) that can provide file in R2 bucket.
+* A [Worker](./worker) that handles requests to upload files to R2 storage or get file from it.
+* A [Python script](./uploader) that helps you upload files to the worker.
+* A [Page Function](./page-function) that can provide file in R2 bucket.
 
 *Currently Cloudflare Pages Functions don't support R2 bucket binding, so the page function part is not finished. They [promised](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/) to support it soon.*
 
