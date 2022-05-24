@@ -19,42 +19,25 @@ export async function handleGET(request: Request): Promise<Response> {
     return new Response(object.body);
 }
 
-export async function handlePOST(request: Request): Promise<Response> {
+export async function handlePUT(request: Request): Promise<Response> {
     const key = getKey(request);
-    let json: any;
-    try {
-        json = request.json();
-    } catch (e) {
-        let r = {
-            "message": "Request body is not valid JSON",
-            "path": key
-        }
-        return new Response(JSON.stringify(r), {status: 400});
-    }
-
     // validate json
-    if (!json.hasOwnProperty("time")) {
+    if (!request.headers.has("Date")) {
         let r = {
-            "message": "Missing time property",
+            "message": "Missing Header: Date",
             "path": key
         }
         return new Response(JSON.stringify(r), {status: 400});
-    } else if (!json.hasOwnProperty("auth")) {
+    } else if (!request.headers.has("Authorization")) {
         let r = {
-            "message": "Missing auth property",
+            "message": "Missing Header: Authorization",
             "path": key
         }
-        return new Response(JSON.stringify(r), {status: 400});
-    } else if (!json.hasOwnProperty("data")) {
-        let r = {
-            "message": "Missing data property",
-            "path": key
-        }
-        return new Response(JSON.stringify(r), {status: 400});
+        return new Response(JSON.stringify(r), {status: 401});
     } else {
         // The time should be the last 45 seconds
         const now = new Date();
-        const reqTime = new Date(json.time);
+        const reqTime = new Date(request.headers.get("Date") as string);
         const diff = now.getTime() - reqTime.getTime();
         if (diff > 45000) {
             let r = {
@@ -65,10 +48,10 @@ export async function handlePOST(request: Request): Promise<Response> {
         }
 
         // validate auth
-        let toHash = json["time"] + key + UPLOAD_SECRET
+        let toHash = (request.headers.get("Date") as string) + key + UPLOAD_SECRET
         const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(toHash));
         const hashHex = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
-        if (hashHex != json["auth"]) {
+        if (`Bearer ${hashHex}` != (request.headers.get("Authorization") as string)) {
             let r = {
                 "message": "Authorization failed.",
                 "path": key
@@ -85,7 +68,7 @@ export async function handlePOST(request: Request): Promise<Response> {
             return new Response(JSON.stringify(r), {status: 403});
         }
     }
-    await BUCKET.put(key, json["data"]);
+    await BUCKET.put(key, request.body);
     const r = {
         "message": "Success",
         "path": key,
