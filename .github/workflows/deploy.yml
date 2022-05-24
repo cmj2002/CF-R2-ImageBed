@@ -1,0 +1,41 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm install
+      - run: npm build
+        env:
+          NODE_ENV: production
+      - name: Publish
+        uses: cloudflare/wrangler-action@1.3.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          preCommands: |
+            cd worker
+            echo "bucket_name = \"${BUCKET_NAME}\"" >> wrangler.toml
+            echo "----------------------------------------"
+            cat wrangler.toml
+            echo "----------------------------------------"
+          secrets: |
+            UPLOAD_SECRET
+            ROOT_URL
+            BUCKET_NAME
+          environment: production
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          UPLOAD_SECRET: ${{secrets.UPLOAD_SECRET}}
+          ROOT_URL: ${{secrets.ROOT_URL}}
+          BUCKET_NAME: ${{secrets.BUCKET_NAME}}
