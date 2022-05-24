@@ -35,7 +35,7 @@ jobs:
             BUCKET_NAME
           environment: production
         env:
-          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           UPLOAD_SECRET: ${{secrets.UPLOAD_SECRET}}
           ROOT_URL: ${{secrets.ROOT_URL}}
           BUCKET_NAME: ${{secrets.BUCKET_NAME}}
