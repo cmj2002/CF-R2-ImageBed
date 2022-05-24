@@ -1,7 +1,7 @@
 {
-  "name": "worker-typescript-template",
+  "name": "cf-r2-imagebed",
   "version": "1.0.0",
-  "description": "Cloudflare worker TypeScript template",
+  "description": "Image hosting based on Cloudflare R2",
   "main": "dist/worker.js",
   "scripts": {
     "build": "webpack",
@@ -9,8 +9,8 @@
     "lint": "eslint --max-warnings=0 src && prettier --check '*.{json,js}' 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'",
     "test": "jest --config jestconfig.json --verbose"
   },
-  "author": "author",
-  "license": "MIT OR Apache-2.0",
+  "author": "cmj2002",
+  "license": "BSD-3-Clause",
   "eslintConfig": {
     "root": true,
     "extends": [
@@ -20,20 +20,20 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.11.0",
-    "@types/jest": "^26.0.23",
+    "@types/jest": "^27.5.1",
     "@types/service-worker-mock": "^2.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.16.1",
-    "@typescript-eslint/parser": "^4.16.1",
-    "eslint": "^7.21.0",
-    "eslint-config-prettier": "^8.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-config-typescript": "^3.0.0",
-    "jest": "^27.0.1",
-    "prettier": "^2.3.0",
+    "jest": "^28.1.0",
+    "prettier": "^2.6.2",
     "service-worker-mock": "^2.0.5",
-    "ts-jest": "^27.0.1",
-    "ts-loader": "^9.2.2",
-    "typescript": "^4.3.2",
-    "webpack": "^5.38.1",
-    "webpack-cli": "^4.7.0"
+    "ts-jest": "^28.0.3",
+    "ts-loader": "^9.3.0",
+    "typescript": "^4.6.4",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
   }
 }
