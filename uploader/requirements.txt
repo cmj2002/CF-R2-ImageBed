@@ -1,3 +1,2 @@
 requests
-dotenv
-datetime
+python-dotenv

@@ -7,7 +7,7 @@ CF-R2-ImageBed 是基于 [Cloudflare R2 对象存储](https://developers.cloudfl
 本仓库包含 3 个部分：
 
 - 一个 [Worker](./worker) 处理将文件上传到 R2 存储或从中获取文件的请求。
-- 一个 [Python 脚本](./uploader)，用于将文件上传到 Worker。
+- 一个 [Python 脚本](./uploader)，用于从 Typora 将文件上传到 Worker。
 - 一个 [Page Function](./page-function)，用于从 R2 存储桶中提供文件
 
 *目前 Cloudflare Pages Functions 不支持 R2 桶绑定，所以 Page Function 部分没有完成。Cloudflare [承诺](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/)很快就会支持绑定。*
@@ -66,7 +66,19 @@ CF-R2-ImageBed 是基于 [Cloudflare R2 对象存储](https://developers.cloudfl
 
 函数 `upload` 接受 Key 和本地文件路径作为参数，如果成功则返回上传文件的 URL。
 
-此脚本尚未完全完成。未来它会支持 Typora 的图片上传。
+最后，将 Typora 的上传命令设置为 `python <path to main.py>`。如果你在环境变量中设置了代理，脚本会自动使用它。
+
+#### 在WSL中运行
+
+如果你使用 WSL 中的 Python 运行该脚本而在 Windows 中运行 Typora，请将上传命令设置为 `wsl python <path to main.py in wsl> --wsl`。
+
+如果你希望在 WSL 中使用 Windows 上的代理，请将上传命令设置为 `wsl python <path to main.py in wsl> --wsl --wsl-proxy-port <port>`。脚本会将 `http://windowsip:<port>` 作为代理。
+
+脚本通过读取 `/etc/resolv.conf` 的 `nameserver` 来获取 Windows 的 IP 地址。如果你手动更改了它，脚本可能出错。
+
+#### 其他上传脚本
+
+如果你用其他语言或者基于其他 Markdown 编辑器编写了脚本，欢迎提交 Pull Request。你可以将已有的脚本作为一个例子。
 
 ### 从 Cloudflare Pages 提供文件
 
@@ -77,7 +89,7 @@ CF-R2-ImageBed 是基于 [Cloudflare R2 对象存储](https://developers.cloudfl
 ## TODO
 
 - [ ] 完成 Pages Functions。（需要等待 Cloudflare 在 Pages Functions 中支持 R2 绑定）
-- [ ] Python 脚本支持 Typora 图片上传。
+- [x] Python 脚本支持 Typora 图片上传。
 - [ ] 在放入存储同之前检查桶中是否有使用相同键的对象。
 
 ## 免责声明
