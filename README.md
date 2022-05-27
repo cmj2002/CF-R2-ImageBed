@@ -1,13 +1,15 @@
 # Cloudflare R2 ImageBed
 
-CF-R2-ImageBed is a image hosting service based on [Cloudflare R2 object storage](https://developers.cloudflare.com/r2/). R2 offers a [free tier](https://developers.cloudflare.com/r2/platform/pricing/).
-
 English | [简体中文](./README_zh-cn.md)
+
+CF-R2-ImageBed is a image hosting service based on [Cloudflare R2 object storage](https://developers.cloudflare.com/r2/). PicGo supported. 
+
+Cloudflare R2 offers a [free tier](https://developers.cloudflare.com/r2/platform/pricing/).
 
 The repo contains 3 parts:
 
 * A [Worker](./worker) that handles requests to upload files to R2 storage or get file from it.
-* A [Python script](./uploader) that upload files to the worker from Typora.
+* A [Python script](./uploader) as a demo to show to upload file to Worker.
 * A [Page Function](./page-function) that can provide file in R2 bucket.
 
 *Currently Cloudflare Pages Functions don't support R2 bucket binding, so the page function part is not finished. They [promised](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/) to support it soon.*
@@ -34,6 +36,8 @@ Also, prepare the following secrets
 
 - [Cloudflare API token](https://developers.cloudflare.com/workers/wrangler/cli-wrangler/authentication/) with `Edit Cloudflare Workers` permissions.
 
+**Warning** if your image bed have Chinese users: [`*.workers.dev` suspected of being blocked in China](https://community.cloudflare.com/t/cloudflare-workers-suspected-of-being-blocked-in-china/382155), so you may need a domain to bind to it.
+
 ### Deploy the worker
 
 Firstly, fork this repo.
@@ -53,32 +57,11 @@ In the new repo, create these secrets:
 
 Then run the workflow `deploy`. You may need to enable actions for the repo first.
 
-### Use the python script
+### Upload files
 
-Enter the `uploader` folder.
+We recommend you to use our [PicGo plugin](https://github.com/cmj2002/picgo-CF-R2), because [PicGo](https://github.com/PicGo/PicGo-Core) supports many editors like Typora and VSCode. PicGo also have a [GUI version](https://github.com/Molunerfinn/PicGo).
 
-Rename the `example.env` to `.env` , then fill in these fields:
-
-* `UPLOAD_SECRET` : must be exactly the same as the `UPLOAD_SECRET` you set when you deploy the worker.
-* `REMOTE_URL` : the URL you deploy your worker. For example, `https://foo.bar.workers.dev/`.
-
-`pip install -r requirements.txt` to install requirements.
-
-Then set the Typora upload command to `python <path to main.py>`. If you set proxy environment variables, the script will use them.
-
-#### use in WSL
-
-You may install python in wsl while running Typora in Windows. 
-
-In this case, the upload command is `wsl python <path to main.py in wsl> --wsl`.
-
-If you have a proxy in windows and want to use it in WSL, use `wsl python <path to main.py in wsl> --wsl --wsl-proxy-port <port>`. It will use `http://windowsip:<port>` as proxy.
-
-We use the nameserver in `/etc/resolv.conf` to get the IP of the windows machine. If you change it manually, the script may not work.
-
-#### Other upload script
-
-If you write a script in other languages or based on other Markdown editors, feel free to open a pull request. You can take mine as an example.
+You can also use our [Python uploader](./uploader) which supports Typora or [write your own](./uploader/README.md#other-upload-script).
 
 ### Provides the files from Cloudflare Pages
 
@@ -91,7 +74,7 @@ Cloudflare Pages Functions allow running workers when someone access specified U
 * [ ] Finish Page Function. (Waiting for Cloudflare to support R2 binding in Pages Functions)
 * [x] Support Typora image upload in python script.
 * [ ] Check if there is object using the same key in bucket before putting it.
-* [ ] PicGo plugin.
+* [x] PicGo plugin.
 
 ## Disclaimer
 

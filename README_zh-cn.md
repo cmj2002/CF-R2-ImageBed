@@ -1,13 +1,16 @@
 # Cloudflare R2 ImageBed
 
-CF-R2-ImageBed 是基于 [Cloudflare R2 对象存储](https://developers.cloudflare.com/r2/)的图像托管服务。R2 提供[免费层](https://developers.cloudflare.com/r2/platform/pricing/)。
-
 [English](./README.md) | 简体中文
+
+CF-R2-ImageBed 是基于 [Cloudflare R2 对象存储](https://developers.cloudflare.com/r2/)的图像托管服务。支持使用 PicGo 上传。
+
+Cloudflare R2 提供[免费层](https://developers.cloudflare.com/r2/platform/pricing/)。
+
 
 本仓库包含 3 个部分：
 
 - 一个 [Worker](./worker) 处理将文件上传到 R2 存储或从中获取文件的请求。
-- 一个 [Python 脚本](./uploader)，用于从 Typora 将文件上传到 Worker。
+- 一个 [Python 脚本](./uploader)，作为向 Worker 上传文件的 demo。
 - 一个 [Page Function](./page-function)，用于从 R2 存储桶中提供文件
 
 *目前 Cloudflare Pages Functions 不支持 R2 桶绑定，所以 Page Function 部分没有完成。Cloudflare [承诺](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/)很快就会支持绑定。*
@@ -34,6 +37,8 @@ CF-R2-ImageBed 是基于 [Cloudflare R2 对象存储](https://developers.cloudfl
 
 - 具有 `Edit Cloudflare Workers` 权限的 [Cloudflare API 令牌](https://developers.cloudflare.com/workers/wrangler/cli-wrangler/authentication/)
 
+**警告**：[GFW 疑似对 `workers.dev` 进行了 SNI 封锁](https://community.cloudflare.com/t/cloudflare-workers-suspected-of-being-blocked-in-china/382155)。你可能还需要一个域名进行绑定。
+
 ### 部署 Worker
 
 首先，fork 这个仓库。
@@ -53,32 +58,11 @@ CF-R2-ImageBed 是基于 [Cloudflare R2 对象存储](https://developers.cloudfl
 
 然后运行 workflow `deploy`。您可能需要先为仓库启用 Action。
 
-### 使用 Python 脚本
+### 上传文件
 
-进入 `uploader` 文件夹。
+我们建议您使用我们的 [PicGo 插件](https://github.com/cmj2002/picgo-CF-R2)进行上传，因为 [PicGo](https://github.com/PicGo/PicGo-Core) 支持许多编辑器，例如 Typora 和 VSCode。PicGo 也有一个 [GUI 版本](https://github.com/Molunerfinn/PicGo)。
 
-将 `example.env` 重命名为 `.env`，然后填写以下字段：
-
-- `UPLOAD_SECRET`: 必须和你部署 Worker 时设置的 `UPLOAD_SECRET` 完全一样。
-- `REMOTE_URL`：您部署 Worker 的 URL。例如，`https://foo.bar.workers.dev/`。
-
-`pip -r requirements.txt` 安装依赖。
-
-函数 `upload` 接受 Key 和本地文件路径作为参数，如果成功则返回上传文件的 URL。
-
-最后，将 Typora 的上传命令设置为 `python <path to main.py>`。如果你在环境变量中设置了代理，脚本会自动使用它。
-
-#### 在WSL中运行
-
-如果你使用 WSL 中的 Python 运行该脚本而在 Windows 中运行 Typora，请将上传命令设置为 `wsl python <path to main.py in wsl> --wsl`。
-
-如果你希望在 WSL 中使用 Windows 上的代理，请将上传命令设置为 `wsl python <path to main.py in wsl> --wsl --wsl-proxy-port <port>`。脚本会将 `http://windowsip:<port>` 作为代理。
-
-脚本通过读取 `/etc/resolv.conf` 的 `nameserver` 来获取 Windows 的 IP 地址。如果你手动更改了它，脚本可能出错。
-
-#### 其他上传脚本
-
-如果你用其他语言或者基于其他 Markdown 编辑器编写了脚本，欢迎提交 Pull Request。你可以将已有的脚本作为一个例子。
+你也可以使用我们的 [Python 上传脚本](./uploader)，它支持 Typora。或者你也可以[自己写一个](uploader/README_zh-cn.md#其他上传脚本)。
 
 ### 从 Cloudflare Pages 提供文件
 
@@ -91,7 +75,7 @@ CF-R2-ImageBed 是基于 [Cloudflare R2 对象存储](https://developers.cloudfl
 - [ ] 完成 Pages Functions。（需要等待 Cloudflare 在 Pages Functions 中支持 R2 绑定）
 - [x] Python 脚本支持 Typora 图片上传。
 - [ ] 在放入存储同之前检查桶中是否有使用相同键的对象。
-- [ ] PicGo 插件。
+- [x] PicGo 插件。
 
 ## 免责声明
 
