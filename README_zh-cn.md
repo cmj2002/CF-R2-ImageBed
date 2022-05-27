@@ -40,7 +40,7 @@ CF-R2-ImageBed 是基于 [Cloudflare R2 对象存储](https://developers.cloudfl
 
 您可能希望在源代码中更改这些内容：
 
-- 在 `worker/src/handler.ts` 的第一行 的 `ALLOW_PATHS`。与 `ALLOW_PATHS` 的所有路径都不匹配的上传请求将被拒绝。
+- 在 `worker/src/config.ts` 中的 `allowPaths`。与 `allowPaths` 的所有路径都不匹配的上传请求将被拒绝。
 - `worker/wrangler.toml` 中的 `name = "upload-blog"` 。 它告诉 Cloudflare 将 Worker 部署到`upload-blog.<your worker subdomain>`。你可以更改它。
 
 在新的仓库中，创建这些 Secret：
@@ -91,6 +91,7 @@ CF-R2-ImageBed 是基于 [Cloudflare R2 对象存储](https://developers.cloudfl
 - [ ] 完成 Pages Functions。（需要等待 Cloudflare 在 Pages Functions 中支持 R2 绑定）
 - [x] Python 脚本支持 Typora 图片上传。
 - [ ] 在放入存储同之前检查桶中是否有使用相同键的对象。
+- [ ] PicGo 插件。
 
 ## 免责声明
 

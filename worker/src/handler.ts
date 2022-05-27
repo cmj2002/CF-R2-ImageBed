@@ -1,7 +1,4 @@
-const ALLOW_PATHS = [
-    "assets/",
-    "images/"
-];
+import {config} from './config';
 
 function getKey(req: Request): string {
     const url = new URL(req.url);
@@ -60,7 +57,7 @@ export async function handlePUT(request: Request): Promise<Response> {
         }
 
         // check if path is allowed
-        if (!ALLOW_PATHS.some(p => key.startsWith(p))) {
+        if (!config.allowPaths.some(p => key.startsWith(p))) {
             let r = {
                 "message": "Requested path is not allowed.",
                 "path": key
