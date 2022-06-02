@@ -47,6 +47,7 @@ Firstly, fork this repo.
 You may want to change these in the source code:
 
 * `allowPaths` in `worker/src/config.ts`. A path that doesn't match any of the `allowPaths` will be rejected.
+* `allowDelete` in `worker/src/config.ts`. If `false`, delete or overwrite will be rejected.
 * `name = "upload-blog"` in `worker/wrangler.toml` . It tells Cloudflare to deploy the worker to `upload-blog.<your worker subdomain>` . You can change it.
 
 In the new repo, create these secrets:
@@ -75,8 +76,12 @@ Cloudflare Pages Functions allow running workers when someone access specified U
 
 * [ ] Finish Page Function. (Waiting for Cloudflare to support R2 binding in Pages Functions)
 * [x] Support Typora image upload in python script.
-* [ ] Check if there is object using the same key in bucket before putting it.
+* [x] Check if there is object using the same key in bucket before putting it.
 * [x] PicGo plugin.
+
+## Changelog
+
+* 2022-06-02: Add support for getting info and deleting files. Check if there is object using the same key in bucket before putting it. Store `Content-Type` if provided.
 
 ## Disclaimer
 

@@ -48,6 +48,7 @@ Cloudflare R2 提供[免费层](https://developers.cloudflare.com/r2/platform/pr
 您可能希望在源代码中更改这些内容：
 
 - 在 `worker/src/config.ts` 中的 `allowPaths`。与 `allowPaths` 的所有路径都不匹配的上传请求将被拒绝。
+- 在 `worker/src/config.ts` 中的 `allowDelete`。如果设置为 `false`，则删除请求、覆盖原有文件的写入将被拒绝。
 - `worker/wrangler.toml` 中的 `name = "upload-blog"` 。 它告诉 Cloudflare 将 Worker 部署到`upload-blog.<your worker subdomain>`。你可以更改它。
 
 在新的仓库中，创建这些 Secret：
@@ -76,8 +77,12 @@ Cloudflare R2 提供[免费层](https://developers.cloudflare.com/r2/platform/pr
 
 - [ ] 完成 Pages Functions。（需要等待 Cloudflare 在 Pages Functions 中支持 R2 绑定）
 - [x] Python 脚本支持 Typora 图片上传。
-- [ ] 在放入存储同之前检查桶中是否有使用相同键的对象。
+- [x] 在放入存储同之前检查桶中是否有使用相同键的对象。
 - [x] PicGo 插件。
+
+## 变更日志
+
+- 2022-06-02: 增加获取信息、删除功能；在覆写之前进行检查；存储 `Content-Type`。
 
 ## 免责声明
 

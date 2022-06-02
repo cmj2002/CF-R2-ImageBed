@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from typing import Optional
-
+import magic
 import requests
 import hashlib
 import os
@@ -52,7 +52,7 @@ def upload(key: str, file: str, proxy: Optional[dict]) -> str:
         res = requests.put(url, data=f, headers={
             'Date': reqTime,
             'Authorization': 'Bearer ' + auth,
-            'Content-Type': 'application/octet-stream',
+            'Content-Type': magic.from_file(file, mime=True),
             'Content-Length': str(f.tell())
         }, proxies=proxy)
     if res.status_code != 200:

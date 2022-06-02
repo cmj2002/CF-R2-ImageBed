@@ -1,5 +1,6 @@
 declare type Config={
     "allowPaths":string[],
+    "allowDelete": boolean,
 };
 
 export const config: Config = {
@@ -7,4 +8,5 @@ export const config: Config = {
         "assets/",
         "images/",
     ],
+    "allowDelete": true,
 }
