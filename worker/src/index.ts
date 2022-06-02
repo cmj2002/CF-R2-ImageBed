@@ -1,4 +1,4 @@
-import {handleGET,handlePUT} from './handler'
+import {handleGET,handlePUT,handleHEAD} from './handler'
 
 addEventListener('fetch', (event) => {
     switch (event.request.method) {
@@ -7,6 +7,9 @@ addEventListener('fetch', (event) => {
             break;
         case 'PUT':
             event.respondWith(handlePUT(event.request));
+            break;
+        case 'HEAD':
+            event.respondWith(handleHEAD(event.request));
             break;
         default:
             event.respondWith(new Response('Method not supported', {status: 405}));

@@ -16,6 +16,25 @@ export async function handleGET(request: Request): Promise<Response> {
     return new Response(object.body);
 }
 
+export async function handleHEAD(request: Request): Promise<Response> {
+    const key = getKey(request);
+    const object = await BUCKET.get(key);
+
+    if (!object) {
+        return new Response("Object Not Found", {status: 404});
+    }
+
+    const init:ResponseInit = {
+        status: 200,
+        headers: {
+            'Date': new Date().toUTCString(),
+            'Content-Length': object.size.toString()
+        }
+    }
+
+    return new Response(null,init);
+}
+
 export async function handlePUT(request: Request): Promise<Response> {
     const key = getKey(request);
     // validate json
