@@ -1,5 +1,7 @@
 # Cloudflare R2 ImageBed
 
+[![Deploy](https://github.com/cmj2002/CF-R2-ImageBed/actions/workflows/deploy.yml/badge.svg)](https://github.com/cmj2002/CF-R2-ImageBed/actions/workflows/deploy.yml)
+
 English | [简体中文](./README_zh-cn.md)
 
 CF-R2-ImageBed is a image hosting service based on [Cloudflare R2 object storage](https://developers.cloudflare.com/r2/). PicGo supported. 

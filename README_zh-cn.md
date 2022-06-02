@@ -1,5 +1,7 @@
 # Cloudflare R2 ImageBed
 
+[![Deploy](https://github.com/cmj2002/CF-R2-ImageBed/actions/workflows/deploy.yml/badge.svg)](https://github.com/cmj2002/CF-R2-ImageBed/actions/workflows/deploy.yml)
+
 [English](./README.md) | 简体中文
 
 CF-R2-ImageBed 是基于 [Cloudflare R2 对象存储](https://developers.cloudflare.com/r2/)的图像托管服务。支持使用 PicGo 上传。

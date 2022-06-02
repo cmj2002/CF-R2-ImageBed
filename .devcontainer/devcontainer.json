@@ -1,5 +1,5 @@
 {
-    "name": "wrangler",
+    "name": "CF-R2-ImageBed",
     "image": "caomingjun/devcontainer:wrangler",
     // Configure tool-specific properties.
     "customizations": {
@@ -8,14 +8,15 @@
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [
                 "dbaeumer.vscode-eslint",
-                "github.copilot"
+                "github.copilot",
+                "humao.rest-client"
             ]
         }
     },
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
     // Use 'postCreateCommand' to run commands after the container is created.
-    // "postCreateCommand": "yarn install",
+    "postCreateCommand": "cd worker/ && npm install",
     // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
     "remoteUser": "node"
 }
