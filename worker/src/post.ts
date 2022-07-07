@@ -1,3 +1,8 @@
+/* 
+ * Implementation of POST method.
+ * This method provides complex functions like delete files and get info about files.
+ */
+
 import {getKey,validate} from "./utils";
 import { config } from "./config";
 

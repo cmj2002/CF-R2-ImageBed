@@ -1,3 +1,8 @@
+/* 
+ * Implementation of basic functions.
+ * Including GET,HEAD,PUT.
+ */
+
 import { getKey,validate } from "./utils";
 import { config } from "./config";
 
@@ -12,10 +17,19 @@ export async function handleGET(request: Request): Promise<Response> {
     let init:ResponseInit={status:200};
 
     if(object.httpMetadata.contentType){
-        init={status:200,headers:{'Content-Type':object.httpMetadata.contentType}};
+        init={status:200,headers:{
+            'Content-Type':object.httpMetadata.contentType,
+            'Content-Length': object.size.toString(),
+            'Date': new Date().toUTCString()
+        }};
+        return new Response(object.body,init);
+    }else{
+        init={status:200,headers:{
+            'Content-Length': object.size.toString(),
+            'Date': new Date().toUTCString()
+        }};
+        return new Response(object.body,init);
     }
-
-    return new Response(object.body,init);
 }
 
 export async function handleHEAD(request: Request): Promise<Response> {
@@ -54,7 +68,7 @@ export async function handlePUT(request: Request): Promise<Response> {
     const res = await validate(key, request);
     if (res !== null) return res;
 
-    if(!config.allowDelete&&BUCKET.get(key)) {
+    if(!config.allowDelete&&(await BUCKET.get(key))) {
         return new Response(JSON.stringify({ message: "Something is already here and delete is not allowed" }), {
             status: 403,
             headers: { 'Content-Type': 'application/json' }
