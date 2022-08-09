@@ -8,14 +8,13 @@ CF-R2-ImageBed 是基于 [Cloudflare R2 对象存储](https://developers.cloudfl
 
 Cloudflare R2 提供[免费层](https://developers.cloudflare.com/r2/platform/pricing/)。
 
-
 本仓库包含 3 个部分：
 
 - 一个 [Worker](./worker) 处理将文件上传到 R2 存储或从中获取文件的请求。
 - 一个 [Python 脚本](./uploader)，作为向 Worker 上传文件的 demo。
 - 一个 [Page Function](./page-function)，用于从 R2 存储桶中提供文件
 
-*目前 Cloudflare Pages Functions 不支持 R2 桶绑定，所以 Page Function 部分没有完成。Cloudflare [承诺](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/)很快就会支持绑定。*
+_目前 Cloudflare Pages Functions 不支持 R2 桶绑定，所以 Page Function 部分没有完成。Cloudflare [承诺](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/)很快就会支持绑定。_
 
 ## 基础知识
 
@@ -71,7 +70,7 @@ Cloudflare R2 提供[免费层](https://developers.cloudflare.com/r2/platform/pr
 
 当有人访问您页面中的指定 URL 时，Cloudflare Pages Functions 允许运行 Worker。
 
-*目前 Cloudflare Pages Functions 不支持 R2 桶绑定，所以这部分没有完成。他们[承诺](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/)很快就会支持它。*
+_目前 Cloudflare Pages Functions 不支持 R2 桶绑定，所以这部分没有完成。他们[承诺](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/)很快就会支持它。_
 
 ## TODO
 

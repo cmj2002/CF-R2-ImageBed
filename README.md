@@ -4,17 +4,17 @@
 
 English | [简体中文](./README_zh-cn.md)
 
-CF-R2-ImageBed is a image hosting service based on [Cloudflare R2 object storage](https://developers.cloudflare.com/r2/). PicGo supported. 
+CF-R2-ImageBed is a image hosting service based on [Cloudflare R2 object storage](https://developers.cloudflare.com/r2/). PicGo supported.
 
 Cloudflare R2 offers a [free tier](https://developers.cloudflare.com/r2/platform/pricing/).
 
 The repo contains 3 parts:
 
-* A [Worker](./worker) that handles requests to upload files to R2 storage or get file from it.
-* A [Python script](./uploader) as a demo to show to upload file to Worker.
-* A [Page Function](./page-function) that can provide file in R2 bucket.
+- A [Worker](./worker) that handles requests to upload files to R2 storage or get file from it.
+- A [Python script](./uploader) as a demo to show to upload file to Worker.
+- A [Page Function](./page-function) that can provide file in R2 bucket.
 
-*Currently Cloudflare Pages Functions don't support R2 bucket binding, so the page function part is not finished. They [promised](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/) to support it soon.*
+_Currently Cloudflare Pages Functions don't support R2 bucket binding, so the page function part is not finished. They [promised](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/) to support it soon._
 
 ## Basic knowledge
 
@@ -30,9 +30,9 @@ If the upload succeed, the worker will send the URL which you can access the fil
 
 You should:
 
-* Have a [Cloudflare Workers account](https://dash.cloudflare.com/sign-up/workers)
-* Enable R2 for your Cloudflare account and create a bucket
-* Install Python3 and `pip` on your computer
+- Have a [Cloudflare Workers account](https://dash.cloudflare.com/sign-up/workers)
+- Enable R2 for your Cloudflare account and create a bucket
+- Install Python3 and `pip` on your computer
 
 Also, prepare the following secrets
 
@@ -46,17 +46,17 @@ Firstly, fork this repo.
 
 You may want to change these in the source code:
 
-* `allowPaths` in `worker/src/config.ts`. A path that doesn't match any of the `allowPaths` will be rejected.
-* `allowDelete` in `worker/src/config.ts`. If `false`, delete or overwrite will be rejected.
-* `name = "upload-blog"` in `worker/wrangler.toml` . It tells Cloudflare to deploy the worker to `upload-blog.<your worker subdomain>` . You can change it.
+- `allowPaths` in `worker/src/config.ts`. A path that doesn't match any of the `allowPaths` will be rejected.
+- `allowDelete` in `worker/src/config.ts`. If `false`, delete or overwrite will be rejected.
+- `name = "upload-blog"` in `worker/wrangler.toml` . It tells Cloudflare to deploy the worker to `upload-blog.<your worker subdomain>` . You can change it.
 
 In the new repo, create these secrets:
 
-* `BUCKET_NAME` : the name of the R2 bucket you create in [Pre-requisites](#pre-requisites).
-* `CF_API_TOKEN` : the Cloudflare API token with `Edit Cloudflare Workers` permissions.
-* `CLOUDFLARE_ACCOUNT_ID` : your Cloudflare account ID, can be found in your workers dashboard.
-* `ROOT_URL` : the root of URL that you want to use to access the file you upload. You can just put the URL that you deploy your worker to, like `https://upload-blog.<your worker subdomain>/`. Don't miss the `/` at the end.
-* `UPLOAD_SECRET` : something like a password to avoid someone upload file to you bucket. You can use any string you like.
+- `BUCKET_NAME` : the name of the R2 bucket you create in [Pre-requisites](#pre-requisites).
+- `CF_API_TOKEN` : the Cloudflare API token with `Edit Cloudflare Workers` permissions.
+- `CLOUDFLARE_ACCOUNT_ID` : your Cloudflare account ID, can be found in your workers dashboard.
+- `ROOT_URL` : the root of URL that you want to use to access the file you upload. You can just put the URL that you deploy your worker to, like `https://upload-blog.<your worker subdomain>/`. Don't miss the `/` at the end.
+- `UPLOAD_SECRET` : something like a password to avoid someone upload file to you bucket. You can use any string you like.
 
 Then run the workflow `deploy`. You may need to enable actions for the repo first.
 
@@ -70,18 +70,18 @@ You can also use our [Python uploader](./uploader) which supports Typora or [wri
 
 Cloudflare Pages Functions allow running workers when someone access specified URL in your page.
 
-*Currently Cloudflare Pages Functions don't support R2 bucket binding, so the page function part is not finished. They [promised](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/) to support it soon.*
+_Currently Cloudflare Pages Functions don't support R2 bucket binding, so the page function part is not finished. They [promised](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/) to support it soon._
 
 ## Todo
 
-* [ ] Finish Page Function. (Waiting for Cloudflare to support R2 binding in Pages Functions)
-* [x] Support Typora image upload in python script.
-* [x] Check if there is object using the same key in bucket before putting it.
-* [x] PicGo plugin.
+- [ ] Finish Page Function. (Waiting for Cloudflare to support R2 binding in Pages Functions)
+- [x] Support Typora image upload in python script.
+- [x] Check if there is object using the same key in bucket before putting it.
+- [x] PicGo plugin.
 
 ## Changelog
 
-* 2022-06-02: Add support for getting info and deleting files. Check if there is object using the same key in bucket before putting it. Store `Content-Type` if provided.
+- 2022-06-02: Add support for getting info and deleting files. Check if there is object using the same key in bucket before putting it. Store `Content-Type` if provided.
 
 ## Disclaimer
 

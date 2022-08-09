@@ -21,7 +21,7 @@
 
 最后，将 Typora 的上传命令设置为 `python <path to main.py>`。如果你在环境变量中设置了代理，脚本会自动使用它。
 
-### 在WSL中运行
+### 在 WSL 中运行
 
 如果你使用 WSL 中的 Python 运行该脚本而在 Windows 中运行 Typora，请将上传命令设置为 `wsl python <path to main.py in wsl> --wsl`。
 

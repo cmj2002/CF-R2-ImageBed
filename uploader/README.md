@@ -12,8 +12,8 @@ If you don't want to use PicGo, you can use this script or [write your own](#oth
 
 Rename the `example.env` to `.env` , then fill in these fields:
 
-* `UPLOAD_SECRET` : must be exactly the same as the `UPLOAD_SECRET` you set when you deploy the worker.
-* `REMOTE_URL` : the URL you deploy your worker. For example, `https://foo.bar.workers.dev/`.
+- `UPLOAD_SECRET` : must be exactly the same as the `UPLOAD_SECRET` you set when you deploy the worker.
+- `REMOTE_URL` : the URL you deploy your worker. For example, `https://foo.bar.workers.dev/`.
 
 `pip install -r requirements.txt` to install requirements.
 
@@ -21,7 +21,7 @@ Then set the Typora upload command to `python <path to main.py>`. If you set pro
 
 ### use in WSL
 
-You may install python in wsl while running Typora in Windows. 
+You may install python in wsl while running Typora in Windows.
 
 In this case, the upload command is `wsl python <path to main.py in wsl> --wsl`.
 
