@@ -14,8 +14,6 @@ Cloudflare R2 提供[免费层](https://developers.cloudflare.com/r2/platform/pr
 - 一个 [Python 脚本](./uploader)，作为向 Worker 上传文件的 demo。
 - 一个 [Page Function](./page-function)，用于从 R2 存储桶中提供文件
 
-_目前 Cloudflare Pages Functions 不支持 R2 桶绑定，所以 Page Function 部分没有完成。Cloudflare [承诺](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/)很快就会支持绑定。_
-
 ## 基础知识
 
 当您将 Worker 部署到 Cloudflare 时，他们将其托管在域名 `<worker name>.<worker subdomain>` 上。对于我，它是 `upload-blog.caomingjun.workers.dev`。
@@ -70,11 +68,11 @@ _目前 Cloudflare Pages Functions 不支持 R2 桶绑定，所以 Page Function
 
 当有人访问您页面中的指定 URL 时，Cloudflare Pages Functions 允许运行 Worker。
 
-_目前 Cloudflare Pages Functions 不支持 R2 桶绑定，所以这部分没有完成。他们[承诺](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/)很快就会支持它。_
+您可以参考 `/page-function/[[path]].ts`。有关 Cloudflare Pages Functions 的用法和工作原理，请参阅 [Cloudflare Pages Functions 文档](https://developers.cloudflare.com/pages/platform/functions/).
 
 ## TODO
 
-- [ ] 完成 Pages Functions。（需要等待 Cloudflare 在 Pages Functions 中支持 R2 绑定）
+- [x] 完成 Pages Functions。（需要等待 Cloudflare 在 Pages Functions 中支持 R2 绑定）
 - [x] Python 脚本支持 Typora 图片上传。
 - [x] 在放入存储同之前检查桶中是否有使用相同键的对象。
 - [x] PicGo 插件。
@@ -82,6 +80,7 @@ _目前 Cloudflare Pages Functions 不支持 R2 桶绑定，所以这部分没�
 ## 变更日志
 
 - 2022-06-02: 增加获取信息、删除功能；在覆写之前进行检查；存储 `Content-Type`。
+- 2022-08-09: 增加 Pages Functions。
 
 ## 免责声明
 

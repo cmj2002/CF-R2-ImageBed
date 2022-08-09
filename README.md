@@ -14,8 +14,6 @@ The repo contains 3 parts:
 - A [Python script](./uploader) as a demo to show to upload file to Worker.
 - A [Page Function](./page-function) that can provide file in R2 bucket.
 
-_Currently Cloudflare Pages Functions don't support R2 bucket binding, so the page function part is not finished. They [promised](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/) to support it soon._
-
 ## Basic knowledge
 
 When you deploy a worker to Cloudflare, they host it at domain `<worker name>.<worker subdomain>`. In my case, it's `upload-blog.caomingjun.workers.dev`.
@@ -46,9 +44,9 @@ Firstly, fork this repo.
 
 You may want to change these in the source code:
 
-- `allowPaths` in `worker/src/config.ts`. A path that doesn't match any of the `allowPaths` will be rejected.
-- `allowDelete` in `worker/src/config.ts`. If `false`, delete or overwrite will be rejected.
-- `name = "upload-blog"` in `worker/wrangler.toml` . It tells Cloudflare to deploy the worker to `upload-blog.<your worker subdomain>` . You can change it.
+* `allowPaths` in `worker/src/config.ts`. A path that doesn't match any of the `allowPaths` will be rejected.
+* `allowDelete` in `worker/src/config.ts`. If `false`, delete or overwrite will be rejected.
+* `name = "upload-blog"` in `worker/wrangler.toml` . It tells Cloudflare to deploy the worker to `upload-blog.<your worker subdomain>` . You can change it.
 
 In the new repo, create these secrets:
 
@@ -70,18 +68,19 @@ You can also use our [Python uploader](./uploader) which supports Typora or [wri
 
 Cloudflare Pages Functions allow running workers when someone access specified URL in your page.
 
-_Currently Cloudflare Pages Functions don't support R2 bucket binding, so the page function part is not finished. They [promised](https://blog.cloudflare.com/cloudflare-pages-goes-full-stack/) to support it soon._
+You can use `/page-function/[[path]].ts` as a example. For how to use Pages Functions and how it works, please refer to [Cloudflare Pages Functions docs](https://developers.cloudflare.com/pages/platform/functions/).
 
 ## Todo
 
-- [ ] Finish Page Function. (Waiting for Cloudflare to support R2 binding in Pages Functions)
+- [x] Finish Page Function. (Waiting for Cloudflare to support R2 binding in Pages Functions)
 - [x] Support Typora image upload in python script.
 - [x] Check if there is object using the same key in bucket before putting it.
 - [x] PicGo plugin.
 
 ## Changelog
 
-- 2022-06-02: Add support for getting info and deleting files. Check if there is object using the same key in bucket before putting it. Store `Content-Type` if provided.
+* 2022-06-02: Add support for getting info and deleting files. Check if there is object using the same key in bucket before putting it. Store `Content-Type` if provided.
+* 2022-08-09: Add support for Pages Functions.
 
 ## Disclaimer
 
