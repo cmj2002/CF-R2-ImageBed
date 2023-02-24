@@ -16,7 +16,7 @@ export async function handleGET(request: Request): Promise<Response> {
 
   let init: ResponseInit = { status: 200 }
 
-  if (object.httpMetadata.contentType) {
+  if (object.httpMetadata && object.httpMetadata.contentType) {
     init = {
       status: 200,
       headers: {
@@ -46,7 +46,7 @@ export async function handleHEAD(request: Request): Promise<Response> {
     return new Response('Object Not Found', { status: 404 })
   }
 
-  if (object.httpMetadata.contentType) {
+  if (object.httpMetadata && object.httpMetadata.contentType) {
     const init: ResponseInit = {
       status: 200,
       headers: {
