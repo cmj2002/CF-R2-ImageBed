@@ -1,5 +1,8 @@
 # Cloudflare R2 ImageBed
 
+> [!WARNING]
+> The repo is archived and no longer maintained. It is recommended to use the S3 API of R2 for uploading and publish it through Custom Domain.
+
 [![Deploy](https://github.com/cmj2002/CF-R2-ImageBed/actions/workflows/deploy.yml/badge.svg)](https://github.com/cmj2002/CF-R2-ImageBed/actions/workflows/deploy.yml)
 
 English | [简体中文](./README_zh-cn.md)
